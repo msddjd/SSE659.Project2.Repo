@@ -35,7 +35,7 @@ public class testing {
 	protected JFrame frmDeliTrainingApplication;
 	List<Product> Products = new ArrayList<Product>();
 	Random generator = new Random(System.currentTimeMillis());
-    int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 1;
+    int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 1, difficulty = 0;
     String name = "", name2 = "", type = "", type2 = "";		
 	
 
@@ -64,6 +64,13 @@ public class testing {
 		pickProducts();
 		initializeTesting();	
 		
+	}
+	
+	public testing(int difficulty){ //Constructor passing in level of difficulty
+		loadProducts();
+		pickProducts();
+		this.difficulty = difficulty;
+		initializeTesting();		
 	}
 	
 	private void loadProducts() {
