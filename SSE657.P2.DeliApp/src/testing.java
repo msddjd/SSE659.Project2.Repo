@@ -32,11 +32,11 @@ import java.awt.Font;
 
 public class testing {
 
-	protected JFrame frmDeliTrainingApplication;
-	List<Product> Products = new ArrayList<Product>();
+	protected JFrame frmDeliTrainingApplication;	
 	Random generator = new Random(System.currentTimeMillis());
     int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 1, difficulty = 0;
-    String name = "", name2 = "", type = "", type2 = "";		
+    String name = "", name2 = "", type = "", type2 = "";
+    GameEngine Engine = new GameEngine();
 	
 
 	/**
@@ -67,13 +67,14 @@ public class testing {
 	}
 	
 	public testing(int difficulty){ //Constructor passing in level of difficulty
+		this.difficulty = difficulty;
 		loadProducts();
 		pickProducts();
-		this.difficulty = difficulty;
 		initializeTesting();		
 	}
 	
-	private void loadProducts() {
+	private void loadProducts() {		 		
+		
 		//Convert All Censored Beef Pictures into Beef Product Objects Objects		
 		File Folder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/Beef/").getPath() );
 	    File [] beefs = Folder.listFiles();	
@@ -84,7 +85,7 @@ public class testing {
 	    	name = beefs[index].getName();
 			properties.put("name", name);
 			properties.put("type", "Beef");
-			Products.add(new Product(properties));			
+			Engine.getProducts().add(new Product(properties));			
 	    }
 	    
 	  //Convert All Censored Bologna Pictures 	
@@ -95,7 +96,7 @@ public class testing {
 	  	    	name = bolognas[index].getName();
 	  			properties.put("name", name);
 	  			properties.put("type", "Bologna");
-	  			Products.add(new Product(properties));			
+	  			Engine.getProducts().add(new Product(properties));			
 	  	    }
 	  	    
 	  	  //Convert All Censored Chicken Pictures 	
@@ -106,7 +107,7 @@ public class testing {
 	  	    	name = chickens[index].getName();
 	  			properties.put("name", name);
 	  			properties.put("type", "Chicken");
-	  			Products.add(new Product(properties));			
+	  			Engine.getProducts().add(new Product(properties));			
 	  	    }
 	  	    
 	  	  //Convert All Censored Ham Pictures 	
@@ -117,7 +118,7 @@ public class testing {
 	  	    	name = hams[index].getName();
 	  			properties.put("name", name);
 	  			properties.put("type", "Ham");
-	  			Products.add(new Product(properties));			
+	  			Engine.getProducts().add(new Product(properties));			
 	  	    }
 	  	    
 	  	    //Convert All Censored Italian Pictures 	
@@ -128,7 +129,7 @@ public class testing {
 		  	    	name = italians[index].getName();
 		  			properties.put("name", name);
 		  			properties.put("type", "Italian");
-		  			Products.add(new Product(properties));			
+		  			Engine.getProducts().add(new Product(properties));			
 		  	    }
 		  	    
 		  	   //Convert All Censored Turkey Pictures 	
@@ -139,7 +140,7 @@ public class testing {
 		  	    	name = turkeys[index].getName();
 		  			properties.put("name", name);
 		  			properties.put("type", "Turkey");
-		  			Products.add(new Product(properties));			
+		  			Engine.getProducts().add(new Product(properties));			
 		  	    }
 		  	    
 		  	  //Convert All Censored Wurst Pictures 	
@@ -150,7 +151,7 @@ public class testing {
 		  	    	name = wursts[index].getName();
 		  			properties.put("name", name);
 		  			properties.put("type", "Wurst");
-		  			Products.add(new Product(properties));			
+		  			Engine.getProducts().add(new Product(properties));			
 		  	    }
 	  	    
 	  	    
@@ -164,10 +165,10 @@ public class testing {
 	    	name = cheeses[index].getName();	    	
 			properties.put("name", name);
 			properties.put("type", "Cheese");
-			Products.add(new Product(properties));			
+			Engine.getProducts().add(new Product(properties));			
 	    }   
 
-	    max = Products.size()-1;	    
+	    	    
 	}
 	
 
@@ -252,12 +253,8 @@ public class testing {
 	}
 	
 	private void updatePage(JLabel Option1, JLabel Option2, JFormattedTextField QuestionText, JFormattedTextField ScoreCounter)
-	{
-		
-		name = Products.get(rand_product).properties.get("name");
-		name2 = Products.get(rand_product2).properties.get("name");
-		type = Products.get(rand_product).properties.get("type");
-		type2 = Products.get(rand_product2).properties.get("type");
+	{	
+		rand_option = generator.nextInt((1+1));
 		QuestionText.setText(questions+". Which one is the "+ name.subSequence(0, name.indexOf('.')));
 		questions++;
 		ScoreCounter.setText("Score: "+score);
@@ -296,16 +293,29 @@ public class testing {
 	}
 	
 	private void pickProducts(){
-		  //Pick a Random#/Product to Test User
-		  	do 
-		  	{
-		  		rand_product = generator.nextInt((max-0) + 1);
-		  		rand_product2 = generator.nextInt((max-0) + 1);
-		  	}		  	
-			while(rand_product2 == rand_product);
-			
-		  	//System.out.println("#1:"+rand_product+" #2:"+rand_product2);
-		  
-		  rand_option = generator.nextInt((1+1));
+		Product product1 = Engine.getUnpicked();
+		Product product2;
+		
+		
+		if(product1 == null)
+			//No more unpicked products
+			System.out.println("Finished");
+		else
+			{
+				name = product1.properties.get("name");
+				type = product1.properties.get("type");	
+				
+				if(difficulty == 0) //if easy
+					{
+						product2 = Engine.getProduct();						
+						type2 = product2.properties.get("type");					
+					}
+				else
+					{
+						product2 = Engine.getProduct(type);
+						type2 = type;
+					}
+				name2 = product2.properties.get("name");				
+			}	  
 	}
 }

@@ -10,6 +10,10 @@ public class GameEngine {
 	private Random generator;
 	int rand_product;
 	
+	public GameEngine(){
+		generator = new Random(System.currentTimeMillis());
+	}
+	
 	public GameEngine(List<Product> Products) {
 		this.Products = Products;
 		generator = new Random(System.currentTimeMillis());
@@ -26,6 +30,7 @@ public class GameEngine {
 			}
 			while( Products.get(rand_product).hasBeenPicked() );
 			
+			Products.get(rand_product).hasBeenPicked();			
 			return Products.get(rand_product);
 		}
 		else
@@ -40,8 +45,8 @@ public class GameEngine {
 			{
 				rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
 			}
-			while( Products.get(rand_product).hasBeenPicked() && !Products.get(rand_product).isOfType(type) ); 
-			
+			while( Products.get(rand_product).hasBeenPicked() && !Products.get(rand_product).isOfType(type) );
+			Products.get(rand_product).hasBeenPicked();			
 			return Products.get(rand_product);
 		}
 		else
@@ -66,6 +71,8 @@ public class GameEngine {
 		return Products.get(rand_product);
 		
 	}
+	
+	//Need to make sure second product does not equal first product as well.
 	
 	public void unMarkAll(){
 		
@@ -99,6 +106,10 @@ public class GameEngine {
 	
 	public int getState() {
 		return this.state;
+	}
+	
+	public List<Product> getProducts(){
+		return this.Products;
 	}
 	
 	
