@@ -294,8 +294,7 @@ public class testing {
 	
 	private void pickProducts(){
 		Product product1 = Engine.getUnpicked();
-		Product product2;
-		
+		Product product2;		
 		
 		if(product1 == null)
 			//No more unpicked products
@@ -307,14 +306,15 @@ public class testing {
 				
 				if(difficulty == 0) //if easy
 					{
-						product2 = Engine.getProduct();						
-						type2 = product2.properties.get("type");					
+						product2 = Engine.getProduct(Engine.getProducts().indexOf(product1));						
+						type2 = product2.properties.get("type");						
 					}
 				else
 					{
-						product2 = Engine.getProduct(type);
-						type2 = type;
-					}
+						product2 = Engine.getProduct ( type, Engine.getProducts().indexOf(product1) );
+						type2 = type;						
+					}				
+				
 				name2 = product2.properties.get("name");				
 			}	  
 	}

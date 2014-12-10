@@ -38,7 +38,7 @@ class Product {
 	}
 	
 	public boolean isOfType(String type) { //Delegation
-		return this.properties.get("type") == type;
+		return this.properties.get("type").equals(type);
 	}
 	
 }

@@ -19,8 +19,7 @@ public class GameEngine {
 		generator = new Random(System.currentTimeMillis());
 	}
 	
-	public Product getUnpicked() {//Get random product that has not been picked before
-			
+	public Product getUnpicked() {//Get random product that has not been picked before			
 		checkState();
 		
 		if(state == 0){
@@ -30,7 +29,7 @@ public class GameEngine {
 			}
 			while( Products.get(rand_product).hasBeenPicked() );
 			
-			Products.get(rand_product).hasBeenPicked();			
+			Products.get(rand_product).markPicked();		
 			return Products.get(rand_product);
 		}
 		else
@@ -46,7 +45,7 @@ public class GameEngine {
 				rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
 			}
 			while( Products.get(rand_product).hasBeenPicked() && !Products.get(rand_product).isOfType(type) );
-			Products.get(rand_product).hasBeenPicked();			
+			Products.get(rand_product).markPicked();		
 			return Products.get(rand_product);
 		}
 		else
@@ -54,19 +53,21 @@ public class GameEngine {
 		
 	}
 	
-	public Product getProduct() {
+	public Product getProduct(int other_product_index) {//Pick a unique random product
 		
+		do
 		rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
+		while(rand_product == other_product_index);
 		return Products.get(rand_product);
 		
 	}
 	
-	public Product getProduct(String type) {
+	public Product getProduct(String type, int other_product_index) {//Pick a unique random product of a certain type
 		do
 		{
 			rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
 		}
-		while( !Products.get(rand_product).isOfType(type) ); 
+		while( (!Products.get(rand_product).isOfType(type)) || (rand_product == other_product_index) ); 
 		
 		return Products.get(rand_product);
 		
