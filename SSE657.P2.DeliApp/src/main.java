@@ -28,7 +28,7 @@ import java.awt.Color;
 
 public class main {
 
-	private JFrame frmDeliTrainingApplication;
+	protected JFrame frmDeliTrainingApplication;
 	
 	//Loading Images into an Array
 	int index = 0;

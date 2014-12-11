@@ -34,9 +34,10 @@ public class testing {
 
 	protected JFrame frmDeliTrainingApplication;	
 	Random generator = new Random(System.currentTimeMillis());
-    int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 1, difficulty = 0;
+    int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 0, difficulty = 0;
     String name = "", name2 = "", type = "", type2 = "";
     GameEngine Engine = new GameEngine();
+    Results resultsWindow;
 	
 
 	/**
@@ -171,12 +172,13 @@ public class testing {
 	    	    
 	}
 	
+	
 
 	private void initializeTesting() {
 		/**
 		 * Initialize the contents of the frame.
 		 */
-		
+				
 		frmDeliTrainingApplication = new JFrame();
 		frmDeliTrainingApplication.getContentPane().setForeground(Color.WHITE);
 		frmDeliTrainingApplication.getContentPane().setBackground(Color.WHITE);
@@ -233,12 +235,12 @@ public class testing {
 		Option2.setBounds(648, 50, 600, 600);
 		frmDeliTrainingApplication.getContentPane().add(Option2);
 		
-		QuestionText.setText("Which one is the "+ name.subSequence(0, name.indexOf('.')));		
+		QuestionText.setText("Select the: "+ name.subSequence(0, name.indexOf('.')));		
 		
 		updatePage(Option1,Option2,QuestionText,ScoreCounter);
 		
 		
-		ScoreCounter.setText("Score: 0");
+		ScoreCounter.setText("Score: 0/0");
 		ScoreCounter.setSelectionColor(Color.WHITE);
 		ScoreCounter.setSelectedTextColor(Color.WHITE);
 		ScoreCounter.setForeground(Color.BLACK);
@@ -253,11 +255,12 @@ public class testing {
 	}
 	
 	private void updatePage(JLabel Option1, JLabel Option2, JFormattedTextField QuestionText, JFormattedTextField ScoreCounter)
-	{	
+	{			
 		rand_option = generator.nextInt((1+1));
-		QuestionText.setText(questions+". Which one is the "+ name.subSequence(0, name.indexOf('.')));
+		QuestionText.setText("Select the: "+ name.subSequence(0, name.indexOf('.')));		
+		ScoreCounter.setText("Score: "+score+"/"+questions);
 		questions++;
-		ScoreCounter.setText("Score: "+score);
+		
 		
 		//Determine Where to display correct picture
 		if(rand_option < 1) //then display correct picture in Option1 box
@@ -292,13 +295,19 @@ public class testing {
 		score++;		
 	}
 	
+	private void showResults(){
+		resultsWindow = new Results(score,questions);
+		resultsWindow.setVisible(true);
+		this.frmDeliTrainingApplication.dispose();		
+	}
+	
 	private void pickProducts(){
 		Product product1 = Engine.getUnpicked();
 		Product product2;		
 		
 		if(product1 == null)
 			//No more unpicked products
-			System.out.println("Finished");
+			showResults();			
 		else
 			{
 				name = product1.properties.get("name");

@@ -8,7 +8,7 @@ public class GameEngine {
 	private	List<Product> Products = new ArrayList<Product>();
 	private int state; //0 - Not all products have been picked, 1 - All products have been picked
 	private Random generator;
-	int rand_product;
+	private int rand_product;
 	
 	public GameEngine(){
 		generator = new Random(System.currentTimeMillis());
@@ -24,9 +24,7 @@ public class GameEngine {
 		
 		if(state == 0){
 			do
-			{
-				rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
-			}
+			rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);			
 			while( Products.get(rand_product).hasBeenPicked() );
 			
 			Products.get(rand_product).markPicked();		
@@ -37,59 +35,43 @@ public class GameEngine {
 	}
 	
 	public Product getUnpicked(String type) { //Get random product of a certain type that has not been picked before
-		
 		checkState();		
 		if(state == 0) {
 			do
-			{
-				rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
-			}
+			rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);		
 			while( Products.get(rand_product).hasBeenPicked() && !Products.get(rand_product).isOfType(type) );
+			
 			Products.get(rand_product).markPicked();		
 			return Products.get(rand_product);
 		}
 		else
-			return null; 
-		
+			return null; 		
 	}
 	
-	public Product getProduct(int other_product_index) {//Pick a unique random product
-		
+	public Product getProduct(int other_product_index) {//Pick a unique random product		
 		do
 		rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
 		while(rand_product == other_product_index);
-		return Products.get(rand_product);
-		
+		return Products.get(rand_product);		
 	}
 	
 	public Product getProduct(String type, int other_product_index) {//Pick a unique random product of a certain type
 		do
-		{
-			rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);
-		}
-		while( (!Products.get(rand_product).isOfType(type)) || (rand_product == other_product_index) ); 
-		
-		return Products.get(rand_product);
-		
+		rand_product = generator.nextInt(( (Products.size()-1) -0) + 1);		
+		while( (!Products.get(rand_product).isOfType(type)) || (rand_product == other_product_index) );
+		return Products.get(rand_product);		
 	}
 	
 	//Need to make sure second product does not equal first product as well.
 	
-	public void unMarkAll(){
-		
+	public void unMarkAll(){		
 		for(int i = 0; i < Products.size(); i++)
-		{
-			Products.get(i).unmark();
-		}
-		
+		Products.get(i).unmark();				
 	}
 	
 	public void resetPicked(){
 		for(int i = 0; i < Products.size(); i++)
-		{
-			Products.get(i).markUnPicked();
-		}
-		
+		Products.get(i).markUnPicked();				
 	}
 	
 	private void checkState(){ //State Pattern
@@ -112,7 +94,4 @@ public class GameEngine {
 	public List<Product> getProducts(){
 		return this.Products;
 	}
-	
-	
-
 }
