@@ -13,5 +13,11 @@ Work to be done:
 1. The product images in the "censored images" folder need to be censored with a picture editing software so that the game can be complete. At the time of creating the repo all of the images are uncensored so the game is very easy when in testing mode.
 
 
-For a deeper understanding of the classes and design involved visit the project documentation folder.
+For a deeper understanding of the classes and design visit the following URLs
+
+Describes Initial Design
+https://drive.google.com/file/d/0B8cEs23kJa2ncktjWElPZmQzV3M/view?usp=sharing
+
+Describes Latest Design
+https://drive.google.com/file/d/0B8cEs23kJa2nR2lSYkRKSzdRcVU/view?usp=sharing
 
