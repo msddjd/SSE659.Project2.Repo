@@ -7,6 +7,8 @@ The application in this repository was developed for a previous course. It is a 
 
 The testing mode has two levels of difficulty, easy and hard. When the testing mode is set to easy the program will prompt the user to choose between two products and it will only make sure that those two products are not the same product. When in hard mode the program will prompt the user to choose between two products and will make sure that both products are not the same product but are of the same type. Thus in easy mode the user may have to choose between a Turkey and a Beef product which should be easier to identify, but in hard mode the two images shown will always be of the same type, hence two turkeys, two beef products, two cheese products, etc.
 
+To run the application simply use a Java IDE such as eclipse and run "main.java" located in the src folder.
+
 Work to be done:
 1. The product images in the "censored images" folder need to be censored with a picture editing software so that the game can be complete. At the time of creating the repo all of the images are uncensored so the game is very easy when in testing mode.
 
