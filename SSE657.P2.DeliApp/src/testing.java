@@ -39,33 +39,6 @@ public class testing {
     GameEngine Engine = new GameEngine();
     Results resultsWindow;
 	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					testing window = new testing();
-					window.frmDeliTrainingApplication.setExtendedState(JFrame.MAXIMIZED_BOTH);
-					window.frmDeliTrainingApplication.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public testing() {		
-		loadProducts();
-		pickProducts();
-		initializeTesting();	
-		
-	}
 	
 	public testing(int difficulty){ //Constructor passing in level of difficulty
 		this.difficulty = difficulty;
