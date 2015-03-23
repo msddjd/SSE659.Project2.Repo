@@ -29,7 +29,6 @@ import javax.swing.UIManager;
 import java.awt.SystemColor;
 import java.awt.Font;
 
-
 public class testing {
 
 	protected JFrame frmDeliTrainingApplication;	
@@ -63,8 +62,7 @@ public class testing {
 	public testing() {		
 		loadProducts();
 		pickProducts();
-		initializeTesting();	
-		
+		initializeTesting();
 	}
 	
 	public testing(int difficulty){ //Constructor passing in level of difficulty
@@ -74,13 +72,46 @@ public class testing {
 		initializeTesting();		
 	}
 	
-	private void loadProducts() {		 		
+	public File[] contents(File directory){
+		return directory.listFiles();
+	}
+	
+		
+	public void refactored_loadProducts(){		
+		
+		//What if I made this method more intuitive by extracting the multiple methods from it and testing each method.
+		//GetListofFolders within a Folder, those names represent types
+		//File meatFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/").getPath() );
+	    //File [] meatTypes = meatFolder.listFiles();
+	    	
+		/*
+		Visit each type folder and get name of all the files, those files are products
+	    
+	    File [] specificMeats;
+	    for(int i = 0; i < meatTypes.length; i++){
+	    	specificMeats = meatTypes[i].listFiles();	    	
+	    }
+	    
+		Create a Product object for each file found, the filename is the name of the file, the type is the name of the file's directory
+	    
+	    for(int index = 0; index < beefs.length; index++) {
+	    	Map<String, String> properties = new HashMap<String, String>();	    	
+	    	name = beefs[index].getName();
+			properties.put("name", name);
+			properties.put("type", "Beef");
+			Engine.getProducts().add(new Product(properties));			
+	    }
+	    
+	    */
+	
+	}
+	
+	private void loadProducts() {	
+		
 		
 		//Convert All Censored Beef Pictures into Beef Product Objects Objects		
 		File Folder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/Beef/").getPath() );
-	    File [] beefs = Folder.listFiles();	
-	    
-		
+	    File [] beefs = Folder.listFiles();
 	    for(int index = 0; index < beefs.length; index++) {
 	    	Map<String, String> properties = new HashMap<String, String>();	    	
 	    	name = beefs[index].getName();
