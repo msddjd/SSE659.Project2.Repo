@@ -47,7 +47,7 @@ public class testing {
 		initializeTesting();		
 	}
 	
-	private void loadProducts() {		 		
+	void loadProducts() {		 		
 		
 		//Convert All Censored Beef Pictures into Beef Product Objects Objects		
 		File Folder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/Beef/").getPath() );
