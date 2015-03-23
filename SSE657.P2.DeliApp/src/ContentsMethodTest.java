@@ -5,8 +5,7 @@ import java.io.File;
 import org.junit.Test;
 
 
-public class contentsMethodShouldListContentsOfDirectory {
-	
+public class ContentsMethodTest {
 	//1. GetListofFolders within a Folder, those names represent types
 
 	@Test
@@ -57,4 +56,5 @@ public class contentsMethodShouldListContentsOfDirectory {
 	}
 	
 	
+
 }
