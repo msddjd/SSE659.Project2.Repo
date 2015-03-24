@@ -37,8 +37,9 @@ public class testing {
 	Random generator = new Random(System.currentTimeMillis());
     int max = 0, rand_product = 0, rand_product2 = 0, rand_option = 0, score = 0, questions = 0, difficulty = 0;
     String name = "", name2 = "", type = "", type2 = "";
-    GameEngine Engine = new GameEngine();
     Results resultsWindow;
+    GameEngine Engine = new GameEngine();    
+    File censoredImagesFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/").getPath() );
 	
 
 	/**
@@ -62,14 +63,14 @@ public class testing {
 	 * Create the application.
 	 */
 	public testing() {		
-		loadProducts();
+		refactored_loadProducts(censoredImagesFolder,Engine);
 		pickProducts();
 		initializeTesting();
 	}
 	
 	public testing(int difficulty){ //Constructor passing in level of difficulty
 		this.difficulty = difficulty;
-		loadProducts();
+		refactored_loadProducts(censoredImagesFolder,Engine);
 		pickProducts();
 		initializeTesting();		
 	}
@@ -89,33 +90,22 @@ public class testing {
 	}
 	
 		
-	public void refactored_loadProducts(){		
-		
-		//Visit each type folder and get name of all the files, those files are products
-	    
-	    File [] specificMeats;
-	    for(int i = 0; i < meatTypes.length; i++){
-	    	specificMeats = meatTypes[i].listFiles();	    	
-	    }
-	    
-		//Create a Product object for each file found, the filename is the name of the file, the type is the name of the file's directory
-	    
-	    for(int index = 0; index < beefs.length; index++) {
-	    	Map<String, String> properties = new HashMap<String, String>();	    	
-	    	name = beefs[index].getName();
-			properties.put("name", name);
-			properties.put("type", "Beef");
-			Engine.getProducts().add(new Product(properties));			
-	    }
-	    
-	    //
-	
+	public void refactored_loadProducts(File path, GameEngine engine){
+		//Recursion Exit Statement
+		if(path.isFile())
+			engine.getProducts().add(fileToProductObject(path));
+		else
+		{
+			File[] folderContent = contents(path);
+			for(int i = 0; i < folderContent.length; i++)
+			{
+				refactored_loadProducts(folderContent[i],engine);
+			}
+		}
 	}
 	
-	private void loadProducts() {	
-		
-		
-		//Convert All Censored Beef Pictures into Beef Product Objects Objects		
+	private void loadProducts() {
+		//Convert All Censored Beef Pictures into Beef Product Objects		
 		File Folder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/Beef/").getPath() );
 	    File [] beefs = Folder.listFiles();
 	    for(int index = 0; index < beefs.length; index++) {
@@ -192,8 +182,6 @@ public class testing {
 		  			Engine.getProducts().add(new Product(properties));			
 		  	    }
 	  	    
-	  	    
-	    
 	    //Convert All Censored Cheese Pictures into Cheese Product Objects
 	    File cheeseFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/Cheese/").getPath() );
 	    File [] cheeses = cheeseFolder.listFiles();
