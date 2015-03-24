@@ -1,13 +1,9 @@
 import static org.junit.Assert.*;
-
 import java.io.File;
-
 import org.junit.Test;
-
 
 public class ContentsMethodTest {
 	//1. GetListofFolders within a Folder, those names represent types
-
 	@Test
 	public void testCorrectNumberOfMeatFolders() {
 		testing tst = new testing();
@@ -31,7 +27,6 @@ public class ContentsMethodTest {
 	}
 	
 	//2. Visit each type folder and get name of all the files, those files are also name of all the products
-	
 	@Test
 	public void testCorrectNumberOfBeefFiles() {
 		testing tst = new testing();
@@ -55,6 +50,4 @@ public class ContentsMethodTest {
 		assertEquals(contents[7].getName(),"PTopRoundRoastBeef.jpg");		
 	}
 	
-	
-
 }

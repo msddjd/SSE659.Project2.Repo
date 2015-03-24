@@ -25,7 +25,9 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+
 import javax.swing.UIManager;
+
 import java.awt.SystemColor;
 import java.awt.Font;
 
@@ -76,23 +78,27 @@ public class testing {
 		return directory.listFiles();
 	}
 	
+	
+	public Product fileToProductObject(File path){
+		
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("name", path.getName());		
+		properties.put("type", path.getParentFile().getName());		
+		Product product = new Product(properties);
+		return product;
+	}
+	
 		
 	public void refactored_loadProducts(){		
 		
-		//What if I made this method more intuitive by extracting the multiple methods from it and testing each method.
-		//GetListofFolders within a Folder, those names represent types
-		//File meatFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/Meats/").getPath() );
-	    //File [] meatTypes = meatFolder.listFiles();
-	    	
-		/*
-		Visit each type folder and get name of all the files, those files are products
+		//Visit each type folder and get name of all the files, those files are products
 	    
 	    File [] specificMeats;
 	    for(int i = 0; i < meatTypes.length; i++){
 	    	specificMeats = meatTypes[i].listFiles();	    	
 	    }
 	    
-		Create a Product object for each file found, the filename is the name of the file, the type is the name of the file's directory
+		//Create a Product object for each file found, the filename is the name of the file, the type is the name of the file's directory
 	    
 	    for(int index = 0; index < beefs.length; index++) {
 	    	Map<String, String> properties = new HashMap<String, String>();	    	
@@ -102,7 +108,7 @@ public class testing {
 			Engine.getProducts().add(new Product(properties));			
 	    }
 	    
-	    */
+	    //
 	
 	}
 	
@@ -189,7 +195,7 @@ public class testing {
 	  	    
 	    
 	    //Convert All Censored Cheese Pictures into Cheese Product Objects
-	    File cheeseFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/Cheeses/").getPath() );
+	    File cheeseFolder = new File( testing.class.getResource("/ProductImages/CensoredImages/Cheese/").getPath() );
 	    File [] cheeses = cheeseFolder.listFiles();
 	    
 	    for(int index = 0; index < cheeses.length; index++) {
@@ -262,7 +268,7 @@ public class testing {
 				updatePage(Option1,Option2,QuestionText,ScoreCounter);
 			}
 		});
-		Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheeses/BWhiteAmericanCheese.jpg")));
+		Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheese/BWhiteAmericanCheese.jpg")));
 		Option2.setBounds(648, 50, 600, 600);
 		frmDeliTrainingApplication.getContentPane().add(Option2);
 		
@@ -299,24 +305,24 @@ public class testing {
 			if(type.compareTo("Cheese")!=0)//Determine which folder correct picture is in
 				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Meats/"+type+"/"+name)));
 			else
-				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheeses/"+name)));
+				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheese/"+name)));
 			
 			if(type2.compareTo("Cheese")!=0)//Determine which folder incorrect picture is in
 				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Meats/"+type2+"/"+name2)));
 			else
-				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheeses/"+name2)));			
+				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheese/"+name2)));			
 		}	
 		else
 		{
 			if(type.compareTo("Cheese")!=0)//Determine which folder correct picture is in
 				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Meats/"+type+"/"+name)));
 			else
-				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheeses/"+name)));
+				Option2.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheese/"+name)));
 			
 			if(type2.compareTo("Cheese")!=0)//Determine which folder incorrect picture is in
 				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Meats/"+type2+"/"+name2)));
 			else
-				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheeses/"+name2)));
+				Option1.setIcon(new ImageIcon(testing.class.getResource("/ProductImages/CensoredImages/Cheese/"+name2)));
 			
 		}		
 	}
